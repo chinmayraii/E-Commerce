@@ -1,7 +1,28 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from .models import *
+from django.views import View
+from django.http import JsonResponse
+from django.http import HttpRequest
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
-def home(request):
- return render(request, 'app/home.html')
+
+
+
+ 
+# def home(request):
+#  return render(request, 'app/home.html')
+
+class ProductView(View):
+    def get(self, request):
+        topwears = Product.objects.filter(category='TW')
+        bottomwears= Product.objects.filter(category='BW')
+        mobiles= Product.objects.filter(category='M')
+        laptops= Product.objects.filter(category='L')
+        return render(request, 'app/home.html',
+        {'topwears':topwears, 'bottomwears':bottomwears, 'mobiles': mobiles,"laptops":laptops})
 
 def product_detail(request):
  return render(request, 'app/productdetail.html')
@@ -27,10 +48,12 @@ def change_password(request):
 def mobile(request):
  return render(request, 'app/mobile.html')
 
+
 def login(request):
  return render(request, 'app/login.html')
 
-def customerregistration(request):
+@login_required
+def registration(request):
  return render(request, 'app/customerregistration.html')
 
 def checkout(request):

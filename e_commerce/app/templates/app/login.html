@@ -4,22 +4,25 @@
 {% block main-content %}
 <div class="container">
  <div class="row my-3">
-  <div class="col-sm-6 offset-sm-3">
+  <div class="col-sm-6 offset-sm-3 w-50">
    <h3>Login</h3>
    <hr>
    <form action="" method="post" novalidate class="shadow p-5">
     <div class="mb-3">
      <label for="exampleInputEmail1" class="form-label">Email</label>
-     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Email Here">
     </div>
     <div class="mb-3">
      <label for="exampleInputPassword1" class="form-label">Password</label>
-     <input type="password" class="form-control" id="exampleInputPassword1">
+     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter Your Password">
     </div>
     <small><a href="#">Forgot Password ?</a></small> <br>
-    <input type="submit" class="btn btn-primary mt-4" value="Login">
+    <div style="padding-left: 150px;">
+        <input type="submit" class="btn  mt-4 m-2 text-white" style="background-color: rgb(230, 77, 77); padding-left:50px ; padding-right: 50px; font-size: 20px;" value="LOGIN">
+        
+    </div>
     <br>
-    <div class="text-center text-primary fw-bold"><small>New to ShoppinglyX ? <a href="{% url 'customerregistration' %}"
+    <div class="text-center text-primary fw-bold"><small>New to ShoppinglyX ? <a href="/registration"
        class="text-danger">Create an Account</a> </small></div>
    </form>
   </div>
