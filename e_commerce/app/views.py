@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 
 
@@ -24,11 +25,29 @@ class ProductView(View):
         return render(request, 'app/home.html',
         {'topwears':topwears, 'bottomwears':bottomwears, 'mobiles': mobiles,"laptops":laptops})
 
-def product_detail(request):
- return render(request, 'app/productdetail.html')
+class ProductDetailView(View):
+    def get(self,request,pk):
+        product=Product.objects.get(pk=pk)
+        item_already_in_cart=False
+        if request.user.is_authenticated:
+            item_already_in_cart=Cart.objects.filter(Q(product=product.id)& Q(user=request.user)).exists()
+            return render(request,'app/productdetail.html',{'product':product,'item_already_in_cart':item_already_in_cart})
+        else:
+            return render(request,'app/productdetail.html',{'product':product,'item_already_in_cart':item_already_in_cart})
+
 
 def add_to_cart(request):
- return render(request, 'app/addtocart.html')
+    user=request.user
+    product_id=request.GET.get('prod_id')
+    product=Product.objects.get(id=product_id)
+    Cart(user=user,product=product).save()
+    return redirect('/cart')
+
+def show_cart(request):
+    return render(request,('app/addtocart.html'))
+
+def product_detail(request):
+ return render(request, 'app/productdetail.html')
 
 def buy_now(request):
  return render(request, 'app/buynow.html')

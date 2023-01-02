@@ -5,15 +5,33 @@
 <div class="container my-5">
  <div class="row">
   <div class="col-sm-6 text-center align-self-center">
-   <img src="{% static 'app/images/product/1.jpg' %}" alt="" class="img-fluid img-thumbnail">
+   <img src="{{product.product_image.url}}" alt="" class="img-fluid img-thumbnail">
   </div>
   <div class="col-sm-5 offset-sm-1">
-   <h2>Product Title: Product 1</h2>
+   <h2>Product Title:{{product.title}} </h2>
    <hr>
-   <p>Product Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, at. Dignissimos rerum incidunt temporibus laudantium. Rem, eveniet corporis. Itaque delectus quae nesciunt nemo, maiores minus deserunt vel. Vero, nulla quisquam!</p> <br>
-   <h4>Rs. 13999 <small class="fw-light text-decoration-line-through">15999</small></h4> <br>
-   <a href="#" class="btn btn-primary shadow px-5 py-2">Add to Cart</a>
-   <a href="#" class="btn btn-danger shadow px-5 py-2 ms-4">Buy Now</a>
+   <p>Product Description: {{product.description}}</p> <br>
+   <h4>Rs.{{product.selling_price}} <small class="fw-light text-decoration-line-through">{{product.discounted_price}}</small></h4> <br>
+   
+   {% if request.user.is_authenticated %}
+   {% if item_already_in_cart %}
+    <a href="{% url 'showcart' %}" class="btn btn-warning shadow px-5 py-2 ms-4">Go to Cart</a>
+   {% else %}
+    <form action="/add-to-cart" class="d-inline">
+    <input type="hidden" name="prod_id" value={{product.id}} id="prod_id">
+    <button type="submit" class="btn btn-primary shodow px-5 py-2">Add To Cart</button>
+    </form>
+   {% endif %}
+   {% endif %}
+
+   {% if not request.user.is_authenticated %}
+    <form action="/add-to-cart" class="d-inline">
+    <input type="hidden" name="prod_id" value={{product.id}} id="prod_id">
+    <button type="submit" class="btn btn-primary shodow px-5 py-2">Add To Cart</button>
+    </form>
+   {% endif %}
+
+   <a href="{% url 'checkout' %}" class="btn btn-danger shadow px-5 py-2 ms-4">Buy Now</a>
    <h5 class="mt-5">Available Offers</h5>
    <ul>
     <li>Special Price Get extra ₹1000 off (price inclusive of discount)</li>
