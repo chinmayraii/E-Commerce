@@ -4,7 +4,12 @@
 {% block main-content %}
 <div class="container my-5">
  <div class="row">
-  <h3>Welcome Harry</h3>
+  <h3>{% if user.is_authenticated%}
+      {{user.first_name}}
+      {% else%}
+      no user login
+      {% endif%}
+  </h3>
   <div class="col-sm-2 border-end">
    <ul class="list-unstyled">
     <li class="d-grid"><a href="#" class="btn btn-primary">Profile</a></li>

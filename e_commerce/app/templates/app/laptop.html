@@ -6,21 +6,16 @@
  <div class="row">
   <div class="col-sm-3">
     <div class="list-group">
-        <a href="{% url 'mobile' %}" 
-        class="list-group-item list-group-item-action active" area-current="true">ALL Models</a>
-        <a href="{% url 'mobiledata' 'Redmi' %}" 
-        class="list-group-item list-group-item-action " area-current="true">Redmi</a>
-        <a href="{% url 'mobiledata' 'Samsung' %}" 
-        class="list-group-item list-group-item-action" area-current="true">Samsung</a>
-        <a href="{% url 'mobiledata' 'below' %}" 
-        class="list-group-item list-group-item-action" area-current="true">Below 10000</a>
-        <a href="{% url 'mobiledata' 'above' %}" 
-        class="list-group-item list-group-item-action" area-current="true">Above 10000</a>
+        <a href="{% url 'laptop' %}" class="list-group-item list-group-item-action active" area-current="true">ALL Mobiles</a>
+        <a href="{% url 'laptopdata' 'Asus' %}" class="list-group-item list-group-item-action " area-current="true">One Plus</a>
+        <a href="{% url 'laptopdata' 'Dell' %}" class="list-group-item list-group-item-action" area-current="true">Samsung</a>
+        <a href="{% url 'laptopdata' 'below' %}" class="list-group-item list-group-item-action" area-current="true">Below 25000</a>
+        <a href="{% url 'laptopdata' 'above' %}" class="list-group-item list-group-item-action" area-current="true">Above 25000</a>
       </div>
   </div>
   <div class="col-sm-8">
     <div class="row">
-      {% for product in mobiles %}
+      {% for product in laptops %}
         <div class="col-sm-4 text-center mb-4">
           <a href="{% url 'product-detail' product.id %}" class="btn">
             <div class="item">
